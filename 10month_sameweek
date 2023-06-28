@@ -1,3 +1,6 @@
+// 曜日を数字で特定（日曜日は0,月曜日は1）
+// "Input Date_Picker's value"の""とJS_to_Bubbleを注意、valueはdate、リストに✅
+
 var date = new Date("Input Date_Picker's value:formatted as yyyy-mm-dd");
 var dayOfWeek = date.getDay(); // その日付の曜日を取得（0: 日曜日, 1: 月曜日, ..., 6: 土曜日）
 var dateOfMonth = date.getDate(); // その日付の月の中の日を取得
