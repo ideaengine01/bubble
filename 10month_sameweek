@@ -1,6 +1,9 @@
 // date pickerで選択した日程の次の月から10か月分の同じ順番の曜日を特定
 // 曜日を数字で特定（日曜日は0,月曜日は1）
-// "Input Date_Picker's value"の""とJS_to_Bubbleを注意、valueはdate、リストに✅
+// date pickerが変更された時（あるいはボタンクリック時）にRun Java Script
+// "Input Date_Picker's value"の""を注意
+// JavascripttoBubbleにJS_to_Bubbleを入力、valueはdate、value is a listに✅
+// リピーティンググループのdata souceはJavascripttoBubble A's value list,type of contentはdate
 
 var date = new Date("Input Date_Picker's value:formatted as yyyy-mm-dd");
 var dayOfWeek = date.getDay(); // その日付の曜日を取得（0: 日曜日, 1: 月曜日, ..., 6: 土曜日）
