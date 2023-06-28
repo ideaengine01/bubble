@@ -1,0 +1,23 @@
+// 曜日を数字で特定（日曜日は0,月曜日は1）
+// "Input Date_Picker's value"の""とJS_to_Bubbleを注意、valueはnumber
+var date = new Date("Input Date_Picker's value");
+var day = date.getDay();
+bubble_fn_JS_to_Bubble(day);
+
+
+
+
+var date = new Date("Input Date_Picker's value"); // Bubble Date Pickerから日付を取得
+var dayOfWeek = date.getDay(); // その日付の曜日を取得（0: 日曜日, 1: 月曜日, ..., 6: 土曜日）
+var dateOfMonth = date.getDate(); // その日付の月の中の日を取得
+var weekCount = 0;
+
+// 月の初めからその日までの間にある同じ曜日の数を数える
+for (var i = 1; i <= dateOfMonth; i++) {
+  var tempDate = new Date(date.getFullYear(), date.getMonth(), i);
+  if (tempDate.getDay() === dayOfWeek) {
+    weekCount++;
+  }
+}
+
+bubble_fn_JS_to_Bubble(weekCount);
