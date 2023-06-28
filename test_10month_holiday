@@ -1,0 +1,63 @@
+var date = new Date("Input Date_Picker's value:formatted as yyyy-mm-dd");
+
+// 祝日を取得するためのAPIやデータベースを使用し、当該日が祝日かどうかを判定するロジックを実装する
+
+// 設定した祝日のデータベースをここに格納予定
+var holidays = ["2023-07-24", "2023-08-14", "2023-08-15", "2023-12-25"];
+
+// カウンターを初期化
+var counter = 0;
+
+while (counter < 10) { // 10か月分の営業日を計算
+  // 次の月の1日を取得
+  var nextMonth = new Date(date.getFullYear(), date.getMonth() + counter + 1, 1);
+
+  // 次の月の1日から順にチェックしていく
+  for (var day = 1; day <= 31; day++) {
+    var tempDate = new Date(nextMonth.getFullYear(), nextMonth.getMonth(), day);
+
+    // 土曜日、日曜日、祝日、お盆、年末年始と重なる場合、その前の営業日（平日）を求める
+    if (
+      tempDate.getDay() === 0 || // 日曜日
+      tempDate.getDay() === 6 || // 土曜日
+      isHoliday(tempDate) || // 祝日
+      isObon(tempDate) || // お盆（特定の日付範囲）
+      isNewYearHoliday(tempDate) // 年末年始（特定の日付範囲）
+    ) {
+      continue; // 重なる場合は次の日へ進む
+    }
+
+    // 営業日（平日）として処理する
+    var yyyy = tempDate.getFullYear();
+    var mm = String(tempDate.getMonth() + 1).padStart(2, '0');
+    var dd = String(tempDate.getDate()).padStart(2, '0');
+    var dateString = yyyy + '-' + mm + '-' + dd;
+    resultDates.push(dateString);
+
+    counter++; // カウンターをインクリメント
+
+    if (counter === 10) {
+      break; // 10か月分の営業日を計算したらループを終了する
+    }
+  }
+}
+
+// 祝日かどうかを判定する関数
+function isHoliday(date) {
+  var formattedDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+  return holidays.includes(formattedDate);
+}
+
+// お盆かどうかを判定する関数
+function isObon(date) {
+  // お盆の判定ロジックを実装する（特定の日付範囲をチェック）
+  return false; // 仮の返り値
+}
+
+// 年末年始かどうかを判定する関数
+function isNewYearHoliday(date) {
+  // 年末年始の判定ロジックを実装する（特定の日付範囲をチェック）
+  return false; // 仮の返り値
+}
+
+bubble_fn_JS_to_Bubble(resultDates);
