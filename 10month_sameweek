@@ -1,0 +1,36 @@
+var date = new Date("Input Date_Picker's value:formatted as yyyy-mm-dd");
+var dayOfWeek = date.getDay(); // その日付の曜日を取得（0: 日曜日, 1: 月曜日, ..., 6: 土曜日）
+var dateOfMonth = date.getDate(); // その日付の月の中の日を取得
+var weekCount = 0;
+
+// 月の初めからその日までの間にある同じ曜日の数を数える
+for (var i = 1; i <= dateOfMonth; i++) {
+  var tempDate = new Date(date.getFullYear(), date.getMonth(), i);
+  if (tempDate.getDay() === dayOfWeek) {
+    weekCount++;
+  }
+}
+
+// 選択した日付の次の月から3ヶ月分の同じ順番の同じ曜日を特定する
+var resultDates = [];
+for (var j = 1; j <= 3; j++) {
+  var nextMonth = new Date(date.getFullYear(), date.getMonth() + j, 1);
+  var nextWeekCount = 0;
+  var dayCount = 1;
+
+  while (nextWeekCount < weekCount) {
+    var nextTempDate = new Date(nextMonth.getFullYear(), nextMonth.getMonth(), dayCount);
+    if (nextTempDate.getDay() === dayOfWeek) {
+      nextWeekCount++;
+    }
+    dayCount++;
+  }
+
+  // タイムゾーンを考慮した形式に修正
+  var yyyy = nextTempDate.getFullYear();
+  var mm = String(nextTempDate.getMonth() + 1).padStart(2, '0'); // Months are zero based
+  var dd = String(nextTempDate.getDate()).padStart(2, '0');
+  resultDates.push(yyyy + '-' + mm + '-' + dd);
+}
+
+bubble_fn_JS_to_Bubble(resultDates);
