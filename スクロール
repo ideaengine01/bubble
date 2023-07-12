@@ -1,0 +1,4 @@
+アイコンタップでサイドバーを開いた時にワークフローの「Run javascript」で下記設定。
+document.body.style.overflow = "hidden";
+サイドバーを閉じるときは下記でスクロール可能にします
+document.body.style.overflow = "auto";
