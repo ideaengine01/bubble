@@ -1,1 +1,43 @@
+var date = new Date("date time picker's value");
+var dayOfWeek = date.getDay(); // その日付の曜日を取得（0: 日曜日, 1: 月曜日, ..., 6: 土曜日）
+var weekOfMonth = Math.floor((date.getDate() - 1) / 7) + 1; // その日付の月の中での週番号を取得（1週目から始まる）
+
+var resultDates = [];
+var currentMonth = date.getMonth();
+var currentYear = date.getFullYear();
+
+for (var i = 0; i < 10; i++) {
+  var nextMonth = currentMonth + 1;
+  var nextYear = currentYear;
+  if (nextMonth > 11) {
+    nextMonth = 0;
+    nextYear++;
+  }
+
+  var firstDayOfMonth = new Date(nextYear, nextMonth, 1).getDay(); // 次の月の1日の曜日を取得
+  var startOffset = (dayOfWeek - firstDayOfMonth + 7) % 7; // 次の月の最初の同じ曜日までの日数のオフセット
+
+  var targetDate = 1 + startOffset + (weekOfMonth - 1) * 7; // 選択した週の同じ曜日の日付を計算
+
+  var lastDayOfMonth = new Date(nextYear, nextMonth + 1, 0).getDate();
+  if (targetDate > lastDayOfMonth) {
+    // 5週目の日程がない場合は4週目の同じ曜日を出力
+    targetDate -= 7;
+  }
+
+  // タイムゾーンを考慮した形式に修正
+  var yyyy = nextYear;
+  var mm = String(nextMonth + 1).padStart(2, '0');
+  var dd = String(targetDate).padStart(2, '0');
+
+  resultDates.push(new Date(yyyy, nextMonth, targetDate)); // JavaScriptのDateオブジェクトとして出力
+
+  currentMonth = nextMonth;
+  currentYear = nextYear;
+}
+
+bubble_fn_JS_to_Bubble(resultDates);
+
+// JavaScriptでDateオブジェクトに変換（例）
+var firstDate = new Date(resultDates[0]);
 
